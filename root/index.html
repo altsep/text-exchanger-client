@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web app that allows to create pages to exchange text pieces between two people"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script&amp;family=PT+Mono&amp;display=swap"
+      rel="stylesheet"
+    />
+    <title>Text Exchanger</title>
+  </head>
+  <body>
+    <script type="module">
+      import { defineTheme } from '../src/styles';
+      (() => {
+        const t = localStorage.getItem('theme');
+        defineTheme(t !== null ? t : 'black on white');
+      })();
+    </script>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
