@@ -1,5 +1,5 @@
 import React from 'react';
-import { useThemeContext } from '../ThemeContext';
+import { useThemeContext } from '../../ThemeContext';
 
 export default function Foot() {
   const { theme } = useThemeContext();

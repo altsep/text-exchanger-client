@@ -20,7 +20,7 @@
   </head>
   <body>
     <script type="module">
-      import { defineTheme } from '../src/styles';
+      import { defineTheme } from '../src/themes';
       (() => {
         const t = localStorage.getItem('theme');
         defineTheme(t !== null ? t : 'black on white');

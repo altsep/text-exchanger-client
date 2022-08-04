@@ -7,9 +7,6 @@
 /**/coverage
 /**/debug
 
-# production
-/**/dist
-
 # misc
 .DS_Store
 .env

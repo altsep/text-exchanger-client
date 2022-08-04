@@ -18,7 +18,7 @@ export function genAlphanumStr(amount = 6):string {
 export function genHexStr(amount = 6):string {
   let res = '';
   for (let i = 0; i < amount; i++) {
-    res += ((Math.random() * 0xf) << 0).toString(16);
+    res += ((Math.random() * 0x10) << 0).toString(16);
   }
   return res;
 }

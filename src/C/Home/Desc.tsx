@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSpring, animated } from 'react-spring';
+import { useSpring } from '@react-spring/core';
+import { animated } from '@react-spring/web';
 
 export default function Desc() {
   const spring = useSpring({
@@ -16,7 +17,7 @@ export default function Desc() {
   }, [spring]);
   return (
     <animated.div
-      className='flex flex-col items-center w-full max-w-lg p-4'
+      className='flex flex-col items-center w-full max-w-lg'
       style={
         sessionStorage.getItem('descIsFaded') !== 'true' ? spring : undefined
       }

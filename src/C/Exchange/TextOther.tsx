@@ -1,15 +1,12 @@
-import React from 'react';
-import { userTextPropsI } from './TextDefault';
+import { userTextPropsI } from './TextArea';
 
 export default function TextOther(props: userTextPropsI) {
-  const { isCreator, textElementType, creatorText, guestText, theme } = props;
+  const { theme, isCreator, textElementType, creatorText, guestText } = props;
   return (
     <div className='flex flex-col items-center justify-center w-full'>
       <h1 className='curs'>{isCreator ? 'Guest\'s text' : 'Creator\'s text'}</h1>
       <div
-        className={`${
-          theme && theme.userText
-        } ${textElementType} font-sans whitespace-pre-line break-words`}
+        className={`${theme.userText} ${textElementType} font-sans whitespace-pre-line break-words`}
       >
         {isCreator ? (
           !guestText ? (
