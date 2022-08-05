@@ -4,7 +4,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   build: {
-    outDir: '../../dist',
+    outDir: '../../text-exchanger-server/dist',
   },
   server: {
     port: 3000,

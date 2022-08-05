@@ -32,51 +32,56 @@ export default function Exchange(props: exchangePropsI) {
   const [gotText, setGotText] = React.useState<boolean>(false);
   const [creatorText, setCreatorText] = React.useState<string>('');
   const [guestText, setGuestText] = React.useState<string>('');
+  const [ws] = React.useState<WebSocket>(() => {
+    const url =
+      location.hostname === 'localhost'
+        ? 'ws://localhost:3002'
+        : `wss://${location.host}`;
+    const ws = new WebSocket(url);
+    ws.onmessage = onMessage;
+    return ws;
+  });
+
+  const sendFormatted = (
+    type: string,
+    payload: string | Record<string, unknown>
+  ) => ws.send(JSON.stringify({ type, payload }));
+
+  React.useEffect(() => {
+    const onOpen = () => {
+      sendFormatted('get-text', { pageName: currentPath, isCreator });
+    };
+    ws.addEventListener('open', onOpen);
+    return () => removeEventListener('open', onOpen);
+  }, []);
+
+  function onMessage(e: MessageEvent) {
+    const { type, payload } = JSON.parse(e.data);
+    const { creatorData, guestData, text, message } = payload;
+    switch (type) {
+      case 'error':
+        setExists(false);
+        console.error(message);
+        break;
+      case 'system':
+        console.log(payload);
+        break;
+      case 'get-text':
+        setCreatorText(creatorData);
+        setGuestText(guestData);
+        setGotText(true);
+        break;
+      case 'other-text':
+        if (isCreator) setGuestText(text);
+        else setCreatorText(text);
+        break;
+      default:
+        return;
+    }
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     isCreator ? setCreatorText(e.target.value) : setGuestText(e.target.value);
-
-  React.useEffect(() => {
-    import('../../F/requests').then(({ getText }) =>
-      getText(currentPath)
-        .then((data) => {
-          if (data) {
-            const { creatorData, guestData } = JSON.parse(data);
-            setCreatorText(creatorData);
-            setGuestText(guestData);
-          }
-        })
-        .finally(() => setGotText(true))
-    );
-  }, []);
-
-  React.useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    import('../../F/requests').then(({ getTextOther }) => {
-      intervalId = setInterval(
-        () =>
-          getTextOther({ pageName: currentPath, isCreator })
-            .then((data) => {
-              if (data) {
-                const { err, text } = JSON.parse(data);
-                if (err) {
-                  throw Error(err);
-                } else if (isCreator) {
-                  setGuestText(text);
-                } else {
-                  setCreatorText(text);
-                }
-              }
-            })
-            .catch((err) => {
-              console.error(err.message);
-              setExists(false);
-            }),
-        3000
-      );
-    });
-    return () => clearInterval(intervalId);
-  }, []);
 
   const userTextProps = {
     theme,
@@ -102,7 +107,7 @@ export default function Exchange(props: exchangePropsI) {
     isCreator,
     creatorText,
     guestText,
-    setExists,
+    sendFormatted,
   };
 
   const selectBtnProps = {

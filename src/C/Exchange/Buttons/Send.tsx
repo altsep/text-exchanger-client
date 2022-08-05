@@ -1,35 +1,31 @@
-import React from 'react';
 import { themeI } from '../../../ThemeContext';
 
-export default function Send(props: {
+interface Props {
   theme: themeI;
   currentPath: string;
   isCreator: boolean;
   creatorText: string;
   guestText: string;
-  setExists: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
-  const { theme, currentPath, isCreator, creatorText, guestText, setExists } =
-    props;
-  const handleSend = () => {
-    import('../../../F/requests').then(({ sendText }) => {
-      sendText({
-        pageName: currentPath,
-        isCreator,
-        text: isCreator ? creatorText : guestText,
-      })
-        .then((data) => {
-          if (data) {
-            const { err } = JSON.parse(data);
-            if (err) {
-              setExists(false);
-              throw Error(err);
-            }
-          }
-        })
-        .catch((err) => console.error(err));
+  sendFormatted: (
+    type: string,
+    payload: string | Record<string, unknown>
+  ) => void;
+}
+
+export default function Send({
+  theme,
+  currentPath,
+  isCreator,
+  creatorText,
+  guestText,
+  sendFormatted,
+}: Props) {
+  const handleSend = () =>
+    sendFormatted('save-text', {
+      pageName: currentPath,
+      isCreator,
+      text: isCreator ? creatorText : guestText,
     });
-  };
   return (
     <button
       className={`${theme.btn} flex flex-row items-center`}
