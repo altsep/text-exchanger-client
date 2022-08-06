@@ -37,7 +37,7 @@ export const getCreatorPages = async (pageName: string) => {
       },
       body: pageName,
     });
-    return await res.text();
+    return await res.json();
   } catch (err) {
     console.log(err);
   }

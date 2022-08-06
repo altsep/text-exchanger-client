@@ -27,11 +27,9 @@ export default function App() {
       import('./F/requests')
         .then(({ getCreatorPages }) =>
           getCreatorPages(id).then((data) => {
-            if (data) {
-              const parsed = JSON.parse(data);
-              if (parsed.err) throw parsed.err;
-              else setPagesCreated(parsed);
-            }
+            if (!data) throw 'No data was returned';
+            if (data.err) throw data.err;
+            setPagesCreated(data);
           })
         )
         .catch((err) => console.error(err))
