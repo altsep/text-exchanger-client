@@ -53,14 +53,13 @@ export default function App() {
     }
   }, []);
 
-  const { warning, setWarningDisplay } = useWarning(
-    '! Cannot create more than 100 pages'
-  );
+  const { warning, setWarningText, setWarningDisplay } = useWarning();
 
   const genBtnProps = {
     pagesCreated,
     setPagesCreated,
     setWarningDisplay,
+    setWarningText,
   };
 
   const unknownProps = {

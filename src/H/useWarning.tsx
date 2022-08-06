@@ -2,10 +2,11 @@ import React from 'react';
 import { useThemeContext } from '../ThemeContext';
 
 export default function useWarning(
-  text: string,
+  defaultText?: string,
   defaultDisplay?: string | null,
   margin?: string | null
 ) {
+  const [text, setText] = React.useState<string>(defaultText || '');
   const [display, setDisplay] = React.useState<string>(
     defaultDisplay || 'hidden'
   );
@@ -25,5 +26,10 @@ export default function useWarning(
       <button className={buttonOpacity}>x</button>
     </div>
   );
-  return { warning, warningDisplay: display, setWarningDisplay: setDisplay };
+  return {
+    warning,
+    warningDisplay: display,
+    setWarningDisplay: setDisplay,
+    setWarningText: setText,
+  };
 }

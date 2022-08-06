@@ -7,15 +7,18 @@ export default function Generate(props: {
   pagesCreated: PageList;
   setPagesCreated: React.Dispatch<React.SetStateAction<PageList>>;
   setWarningDisplay: React.Dispatch<React.SetStateAction<string>>;
+  setWarningText: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  const { pagesCreated, setPagesCreated, setWarningDisplay } = props;
+  const { pagesCreated, setPagesCreated, setWarningDisplay, setWarningText } =
+    props;
   const { theme } = useThemeContext();
   const [isPageCreated, setIsPageCreated] = React.useState<boolean>(false);
   const [newPath, setNewPath] = React.useState<string>('');
   const [innerText, setInnerText] = React.useState<string>('Generate');
 
   const handleClickAlphanum = () => {
-    if (pagesCreated.length < 100) {
+    if (document.cookie && pagesCreated.length < 100) {
+      setWarningDisplay('hidden');
       setInnerText('Working...');
       const id = document.cookie.split('=')[1];
       import('../../../F/gen-str')
@@ -41,8 +44,14 @@ export default function Generate(props: {
           const url = location.href + generatedString;
           navigator.clipboard.writeText(url);
         })
-        .catch((err) => console.error(err))
+        .catch((err) => console.error(err));
     } else {
+      const warningText = !document.cookie
+        ? '! Can\'t identify user! Please make sure cookies are enabled'
+        : !(pagesCreated.length < 100)
+        ? '! Cannot have more than 100 pages at a time'
+        : '';
+      setWarningText(warningText);
       setWarningDisplay('flex');
     }
   };
@@ -52,9 +61,9 @@ export default function Generate(props: {
       <button
         className={theme && theme.btn}
         onClick={() => {
-          // Can be set to create an arbitrary amount of pages if required
+          // Create an arbitrary amount of pages
           // for (let i = 0; i < 25; i++) {
-          handleClickAlphanum();
+            handleClickAlphanum();
           // }
         }}
       >

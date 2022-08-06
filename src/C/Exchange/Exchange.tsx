@@ -137,41 +137,33 @@ export default function Exchange(props: exchangePropsI) {
   }, [warningDisplay]);
 
   return (
-    <>
-      {document.cookie ? (
-        <div className='flex flex-col items-center'>
-          {warning}
-          <div className='m-3 w-full'>
-            {textElementType === 'default' ? (
-              <Area {...userTextProps} />
-            ) : (
-              <Other {...userTextProps} />
-            )}
-          </div>
-          <div className='flex flex-row flex-wrap justify-center'>
-            {textElementType === 'default' && (
-              <>
-                <Send {...sendBtnProps} />
-                <Select {...selectBtnProps} />
-              </>
-            )}
-            {isCreator && <RemovePage {...deleteBtnProps} />}
-            <Show {...showBtnProps} />
-          </div>
-          <div
-            className={`${
-              theme && theme.system
-            } p-3 text-xs flex flex-col items-center`}
-          >
-            <p>Page created</p>
-            <p>{date}</p>
-          </div>
-        </div>
-      ) : (
-        <p className={theme.system + ' p-2'}>
-          Can&apos;t identify user! Please enable cookies for this site.
-        </p>
-      )}
-    </>
+    <div className='flex flex-col items-center'>
+      {warning}
+      <div className='m-3 w-full'>
+        {textElementType === 'default' ? (
+          <Area {...userTextProps} />
+        ) : (
+          <Other {...userTextProps} />
+        )}
+      </div>
+      <div className='flex flex-row flex-wrap justify-center'>
+        {textElementType === 'default' && (
+          <>
+            <Send {...sendBtnProps} />
+            <Select {...selectBtnProps} />
+          </>
+        )}
+        {isCreator && <RemovePage {...deleteBtnProps} />}
+        <Show {...showBtnProps} />
+      </div>
+      <div
+        className={`${
+          theme && theme.system
+        } p-3 text-xs flex flex-col items-center`}
+      >
+        <p>Page created</p>
+        <p>{date}</p>
+      </div>
+    </div>
   );
 }
