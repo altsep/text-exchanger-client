@@ -21,35 +21,35 @@ export default function App() {
   React.useEffect(() => {
     // Determine if user has an id. If not, assign one in the form of a cookie
     const id = document.cookie.split('=')[1];
+    setCookie(id);
+    setGotPages(false);
     if (id) {
-      setUserId(id);
-      setGotPages(false);
       import('./F/requests')
         .then(({ getCreatorPages }) =>
           getCreatorPages(id).then((data) => {
             if (data) {
               const parsed = JSON.parse(data);
-              if (parsed.err) {
-                throw Error(parsed.err);
-              } else {
-                setPagesCreated(parsed);
-              }
+              if (parsed.err) throw parsed.err;
+              else setPagesCreated(parsed);
             }
           })
         )
-        .catch((err) => console.warn(err.message))
+        .catch((err) => console.error(err))
         .finally(() => setGotPages(true));
     } else {
       import('./F/gen-str')
         .then(({ genAlphanumStr }) => {
           const rndStr = genAlphanumStr(32);
-          const userToken = 'user-id=' + rndStr;
-          const attr = ';max-age=2592000;secure;samesite=strict';
-          document.cookie = userToken + attr;
-          setUserId(rndStr);
+          setCookie(rndStr);
         })
         .catch((err) => console.error(err))
         .finally(() => setGotPages(true));
+    }
+    function setCookie(id: string) {
+      const userToken = 'user-id=' + id;
+      const attr = ';max-age=2592000;secure;samesite=strict';
+      document.cookie = userToken + attr;
+      setUserId(id);
     }
   }, []);
 
