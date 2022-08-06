@@ -168,7 +168,9 @@ export default function Exchange(props: exchangePropsI) {
           </div>
         </div>
       ) : (
-        <p>Can&apos;t identify user! Please enable cookies for this site.</p>
+        <p className={theme.system + ' p-2'}>
+          Can&apos;t identify user! Please enable cookies for this site.
+        </p>
       )}
     </>
   );
