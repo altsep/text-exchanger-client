@@ -43,7 +43,7 @@ export default function UserPages(props: {
           })}
         </div>
       ) : (
-        <>&nbsp;</>
+        <p>&nbsp;</p>
       )}
     </div>
   );

@@ -13,15 +13,22 @@ export default function Unknown(props: {
   userId: string;
   pagesCreated: PageList;
   setPagesCreated: React.Dispatch<React.SetStateAction<PageList>>;
+  setConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { userId, setPagesCreated } = props;
+  const { userId, setPagesCreated, setConnected } = props;
+  
   const [pageWasDeleted, setPageWasDeleted] = React.useState<boolean>(false);
+
   const { theme } = useThemeContext();
+
   const [count, setCount] = React.useState<number>(3);
+
   const { p } = useParams();
+
   React.useEffect(() => {
     p && setCurrentPath(p);
   }, []);
+
   const [currentPath, setCurrentPath] = React.useState<string>('');
 
   React.useEffect(() => {
@@ -88,6 +95,7 @@ export default function Unknown(props: {
     setPageWasDeleted,
     setPagesCreated,
     setExists,
+    setConnected
   };
 
   const sysStyle = `${theme && theme.system} m-2 mb-4`;

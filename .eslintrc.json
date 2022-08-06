@@ -30,7 +30,7 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off",
-    "quotes": ["warn", "single", { "avoidEscape": false }],
+    "quotes": ["off", "single", { "avoidEscape": false }],
     "jsx-quotes": ["warn", "prefer-single"],
     "no-empty": ["warn"],
     "@typescript-eslint/explicit-function-return-type": "off",

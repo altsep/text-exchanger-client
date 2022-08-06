@@ -17,15 +17,15 @@ interface GetTextOther {
   isCreator: boolean;
 }
 
-// ! Unused. Get pages currently available at server
-export const getPages = async () => {
-  try {
-    const res = await fetch('/api/list');
-    return await res.text();
-  } catch (err) {
-    console.log(err);
-  }
-};
+// Get pages currently available at server
+// export const getPages = async () => {
+//   try {
+//     const res = await fetch('/api/list');
+//     return await res.text();
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 // Get pages filtered by creator id
 export const getCreatorPages = async (pageName: string) => {
@@ -37,9 +37,11 @@ export const getCreatorPages = async (pageName: string) => {
       },
       body: pageName,
     });
-    return await res.json();
+    const parsed = await res.json();
+    if (!parsed) throw 'Response empty';
+    return parsed;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -74,14 +76,14 @@ export const removePage = async (pageName: string) => {
   }
 };
 
-// ! Used for debugging. Remove all contents of the pages dir
-export const removePages = async () => {
-  try {
-    await fetch('/api/remove-all');
-  } catch (err) {
-    console.log(err);
-  }
-};
+// Remove all contents of the pages dir
+// export const removePages = async () => {
+//   try {
+//     await fetch('/api/remove-all');
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 // Get info.json for a particular path
 export const getInfo = async (pageName: string) => {

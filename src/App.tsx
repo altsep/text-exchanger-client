@@ -17,7 +17,7 @@ export default function App() {
   const [userId, setUserId] = React.useState<string>('');
   const [gotPages, setGotPages] = React.useState<boolean>(false);
   const [pagesCreated, setPagesCreated] = React.useState<PageList>([]);
-
+  const [connected, setConnected] = React.useState<boolean>(true);
   React.useEffect(() => {
     // Determine if user has an id. If not, assign one in the form of a cookie
     const id = document.cookie.split('=')[1];
@@ -26,13 +26,16 @@ export default function App() {
     if (id) {
       import('./F/requests')
         .then(({ getCreatorPages }) =>
-          getCreatorPages(id).then((data) => {
-            if (!data) throw 'No data was returned';
-            if (data.err) throw data.err;
-            setPagesCreated(data);
+          getCreatorPages(id).then((res) => {
+            if (!res) throw 'No response received';
+            if (res.err) throw res.err;
+            setPagesCreated(res);
           })
         )
-        .catch((err) => console.error(err))
+        .catch((err) => {
+          console.log(err);
+          setConnected(false);
+        })
         .finally(() => setGotPages(true));
     } else {
       import('./F/gen-str')
@@ -53,17 +56,27 @@ export default function App() {
 
   const { warning, setWarningText, setWarningDisplay } = useWarning();
 
+  React.useEffect(() => {
+    if (!connected) {
+      setWarningText("! Couldn't connect to server");
+      setWarningDisplay('flex');
+    }
+  }, [connected, setWarningDisplay, setWarningText]);
+
   const genBtnProps = {
+    connected,
     pagesCreated,
     setPagesCreated,
     setWarningDisplay,
     setWarningText,
+    setConnected,
   };
 
   const unknownProps = {
     userId,
     pagesCreated,
     setPagesCreated,
+    setConnected,
   };
 
   const userPagesProps = { userId, pagesCreated, setPagesCreated, gotPages };

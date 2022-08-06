@@ -14,6 +14,7 @@ interface exchangePropsI {
   setPageWasDeleted: React.Dispatch<React.SetStateAction<boolean>>;
   setPagesCreated: React.Dispatch<React.SetStateAction<PageList>>;
   setExists: React.Dispatch<React.SetStateAction<boolean>>;
+  setConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Exchange(props: exchangePropsI) {
@@ -25,6 +26,7 @@ export default function Exchange(props: exchangePropsI) {
     setPageWasDeleted,
     setPagesCreated,
     setExists,
+    setConnected
   } = props;
   const { theme } = useThemeContext();
   const [textElementType, setTextElementType] =
@@ -35,7 +37,7 @@ export default function Exchange(props: exchangePropsI) {
   const [ws] = React.useState<WebSocket>(() => {
     const url =
       location.hostname === 'localhost'
-        ? 'ws://localhost:3002'
+        ? 'ws://localhost:3001'
         : `wss://${location.host}`;
     const ws = new WebSocket(url);
     ws.onmessage = onMessage;
@@ -99,6 +101,7 @@ export default function Exchange(props: exchangePropsI) {
     userId,
     setPageWasDeleted,
     setPagesCreated,
+    setConnected
   };
 
   const sendBtnProps = {
@@ -108,6 +111,7 @@ export default function Exchange(props: exchangePropsI) {
     creatorText,
     guestText,
     sendFormatted,
+    setConnected
   };
 
   const selectBtnProps = {

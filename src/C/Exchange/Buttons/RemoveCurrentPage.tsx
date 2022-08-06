@@ -8,20 +8,25 @@ export default function RemoveCurrentPage(props: {
   userId: string;
   setPageWasDeleted: React.Dispatch<React.SetStateAction<boolean>>;
   setPagesCreated: React.Dispatch<React.SetStateAction<PageList>>;
+  setConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { theme, currentPath, userId, setPageWasDeleted, setPagesCreated } = props;
+  const { theme, currentPath, userId, setPageWasDeleted, setPagesCreated, setConnected } =
+    props;
 
-  const handleClick = () => {
-    import('../../../F/requests').then(({ removePage, getCreatorPages }) => {
-      removePage(currentPath).then(() =>
-        getCreatorPages(userId).then((data) => {
-          if (data) {
-            setPagesCreated(JSON.parse(data));
-          }
-        })
+  const handleClick = async () => {
+    try {
+      const { removePage, getCreatorPages } = await import(
+        '../../../F/requests'
       );
-    });
-    setPageWasDeleted(true);
+      await removePage(currentPath);
+      setPageWasDeleted(true);
+      const data = await getCreatorPages(userId);
+      if (!data) throw 'No data received';
+      setPagesCreated(data);
+    } catch (e) {
+      console.log(e);
+      setConnected(false);
+    }
   };
 
   return (
