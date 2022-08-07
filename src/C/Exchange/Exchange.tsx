@@ -26,7 +26,7 @@ export default function Exchange(props: exchangePropsI) {
     setPageWasDeleted,
     setPagesCreated,
     setExists,
-    setConnected
+    setConnected,
   } = props;
   const { theme } = useThemeContext();
   const [textElementType, setTextElementType] =
@@ -101,7 +101,7 @@ export default function Exchange(props: exchangePropsI) {
     userId,
     setPageWasDeleted,
     setPagesCreated,
-    setConnected
+    setConnected,
   };
 
   const sendBtnProps = {
@@ -111,7 +111,7 @@ export default function Exchange(props: exchangePropsI) {
     creatorText,
     guestText,
     sendFormatted,
-    setConnected
+    setConnected,
   };
 
   const selectBtnProps = {

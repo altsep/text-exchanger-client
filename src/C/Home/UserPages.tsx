@@ -23,7 +23,7 @@ export default function UserPages(props: {
   return (
     <div className='max-h-min'>
       {!gotPages ? (
-        <p className={theme && theme.system}>Getting data...</p>
+        <p className={theme.system}>Getting data...</p>
       ) : pagesCreated.length > 0 ? (
         <div
           className={`pages ${
@@ -43,7 +43,7 @@ export default function UserPages(props: {
           })}
         </div>
       ) : (
-        <p>&nbsp;</p>
+        <p className={theme.system}>&nbsp;</p>
       )}
     </div>
   );
