@@ -21,8 +21,10 @@ export default function Select(props: {
   } = props;
 
   const getSelection = (el: HTMLTextAreaElement) => {
-    const { selectionStart, selectionEnd } = el;
-    return el.textContent?.slice(selectionStart, selectionEnd);
+    if (el) {
+      const { selectionStart, selectionEnd } = el;
+      return el.textContent?.slice(selectionStart, selectionEnd);
+    }
   };
 
   const handleClick = function () {
