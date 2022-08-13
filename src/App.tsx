@@ -58,7 +58,7 @@ export default function App() {
 
   React.useEffect(() => {
     if (!connected) {
-      setWarningText("! Couldn't connect to server");
+      setWarningText("! Couldn't connect to the server. Try refreshing the page");
       setWarningDisplay('flex');
     }
   }, [connected, setWarningDisplay, setWarningText]);
