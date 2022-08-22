@@ -18,25 +18,15 @@ export default function App() {
   const [gotPages, setGotPages] = React.useState<boolean>(false);
   const [pagesCreated, setPagesCreated] = React.useState<PageList>([]);
   const [connected, setConnected] = React.useState<boolean>(true);
+  const [loading, setLoading] = React.useState<boolean>(true);
+
   React.useEffect(() => {
     // Determine if user has an id. If not, assign one in the form of a cookie
     const id = document.cookie.split('=')[1];
     setCookie(id);
     setGotPages(false);
     if (id) {
-      import('./F/requests')
-        .then(({ getCreatorPages }) =>
-          getCreatorPages(id).then((res) => {
-            if (!res) throw 'No response received';
-            if (res.err) throw res.err;
-            setPagesCreated(res);
-          })
-        )
-        .catch((err) => {
-          console.log(err);
-          setConnected(false);
-        })
-        .finally(() => setGotPages(true));
+      getPages(id);
     } else {
       import('./F/gen-str')
         .then(({ genAlphanumStr }) => {
@@ -44,7 +34,7 @@ export default function App() {
           setCookie(rndStr);
         })
         .catch((err) => console.error(err))
-        .finally(() => setGotPages(true));
+        .finally(() => setLoading(false));
     }
     function setCookie(id: string) {
       const userToken = 'user-id=' + id;
@@ -57,11 +47,38 @@ export default function App() {
   const { warning, setWarningText, setWarningDisplay } = useWarning();
 
   React.useEffect(() => {
-    if (!connected) {
-      setWarningText("! Couldn't connect to the server. Try refreshing the page");
+    let intervalId: NodeJS.Timer | undefined;
+    if (!connected && !gotPages) {
+      intervalId = setInterval(() => {
+        console.log('Attempting to access the server...');
+        getPages(userId);
+      }, 5000);
+      setWarningText(
+        '! Could not connect to the server. Try refreshing the page after some time'
+      );
       setWarningDisplay('flex');
-    }
-  }, [connected, setWarningDisplay, setWarningText]);
+    } else setWarningDisplay('hidden');
+    return () => clearInterval(intervalId);
+  }, [connected, gotPages, userId, setWarningDisplay, setWarningText]);
+
+  const getPages = (id: string) =>
+    import('./F/requests')
+      .then(({ getCreatorPages }) =>
+        getCreatorPages(id).then((res) => {
+          if (!res) throw 'No response received';
+          if (res.err) throw res.err;
+          setPagesCreated(res);
+          setConnected(true);
+          setGotPages(true);
+          if (res.length > 0) console.log('Got list of pages');
+          else console.log('User has no pages');
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+        setConnected(false);
+      })
+      .finally(() => setLoading(false));
 
   const genBtnProps = {
     connected,
@@ -79,7 +96,13 @@ export default function App() {
     setConnected,
   };
 
-  const userPagesProps = { userId, pagesCreated, setPagesCreated, gotPages };
+  const userPagesProps = {
+    loading,
+    userId,
+    pagesCreated,
+    setPagesCreated,
+    gotPages,
+  };
 
   return (
     <Routes>

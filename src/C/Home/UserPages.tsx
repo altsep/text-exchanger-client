@@ -4,11 +4,13 @@ import { useThemeContext } from '../../ThemeContext';
 import { PageList } from '../../App';
 
 export default function UserPages(props: {
+  loading: boolean;
   gotPages: boolean;
   pagesCreated: PageList;
 }) {
-  const { gotPages, pagesCreated } = props;
+  const { loading, gotPages, pagesCreated } = props;
   const { theme } = useThemeContext();
+
   React.useEffect(() => {
     const el = document.querySelector('.pages') as HTMLDivElement;
     if (el) {
@@ -20,9 +22,10 @@ export default function UserPages(props: {
       }
     }
   }, [gotPages, pagesCreated]);
+
   return (
     <div className='max-h-min'>
-      {!gotPages ? (
+      {loading ? (
         <p className={theme.system}>Getting data...</p>
       ) : pagesCreated.length > 0 ? (
         <div
