@@ -70,9 +70,11 @@ export default function Select(props: {
   return (
     <button
       className={`${theme.btn} ${
-        isCreator
-          ? creatorText.length === 0 && 'hidden'
-          : guestText.length === 0 && 'hidden'
+        !gotText ||
+        (isCreator && creatorText.length === 0) ||
+        (!isCreator && guestText.length === 0)
+          ? 'hidden'
+          : ''
       }`}
       onClick={handleClick}
     >
