@@ -54,7 +54,7 @@ export default function App() {
         getPages(userId);
       }, 5000);
       setWarningText(
-        '! Could not connect to the server. Try refreshing the page after some time'
+        '! Could not connect to the server. Try refreshing the page or wait until it reconnects...'
       );
       setWarningDisplay('flex');
     } else setWarningDisplay('hidden');
@@ -70,7 +70,7 @@ export default function App() {
           setPagesCreated(res);
           setConnected(true);
           setGotPages(true);
-          if (res.length > 0) console.log('Got list of pages');
+          if (res.length > 0) console.log('Received list of pages');
           else console.log('User has no pages');
         })
       )
