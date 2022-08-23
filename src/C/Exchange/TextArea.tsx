@@ -55,6 +55,7 @@ export default function TextArea(props: userTextPropsI) {
       <textarea
         className={`${theme.userText} shadow-inner shadow-black/25 placeholder:text-base placeholder:font-mono overflow-y-hidden resize-none focus:outline-none`}
         placeholder={gotText ? 'Enter text here...' : 'Getting data...'}
+        readOnly={!gotText}
         value={isCreator ? creatorText : guestText}
         onChange={handleChange}
         autoFocus
