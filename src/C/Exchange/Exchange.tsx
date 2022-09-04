@@ -132,7 +132,7 @@ export default function Exchange(props: exchangePropsI) {
   };
 
   const { warning, warningDisplay } = useWarning(
-    '! Information posted is not secure and is accessible to anyone visiting the url. Take caution not to share any sensitive data.',
+    '! Information posted is accessible to anyone visiting the url. Take caution not to share any sensitive data.',
     localStorage.getItem('exchangeWarningDisplay') || 'flex'
   );
 
