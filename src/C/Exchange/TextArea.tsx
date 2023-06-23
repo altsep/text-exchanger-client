@@ -12,8 +12,7 @@ export interface userTextPropsI {
 }
 
 export default function TextArea(props: userTextPropsI) {
-  const { theme, isCreator, creatorText, guestText, handleChange, gotText } =
-    props;
+  const { theme, isCreator, creatorText, guestText, handleChange, gotText } = props;
 
   const setTextAreaHeight = () => {
     const ta = document.querySelector('textarea') as HTMLTextAreaElement;
@@ -50,8 +49,8 @@ export default function TextArea(props: userTextPropsI) {
   }, [gotText]);
 
   return (
-    <div className='flex flex-col items-center justify-center w-full'>
-      <h1 className='curs'>Edit your text</h1>
+    <div className="flex flex-col items-center justify-center w-full">
+      <h1 className="curs">Edit your text</h1>
       <textarea
         className={`${theme.userText} shadow-inner shadow-black/25 placeholder:text-base placeholder:font-mono overflow-y-hidden resize-none focus:outline-none`}
         placeholder={gotText ? 'Enter text here...' : 'Getting data...'}

@@ -1,4 +1,4 @@
-export function genAlphanumStr(amount = 6):string {
+export function genAlphanumStr(amount = 6): string {
   let res = '';
   let charList = '';
   for (let i = 48; i <= 57; i++) {
@@ -15,7 +15,7 @@ export function genAlphanumStr(amount = 6):string {
   return res;
 }
 
-export function genHexStr(amount = 6):string {
+export function genHexStr(amount = 6): string {
   let res = '';
   for (let i = 0; i < amount; i++) {
     res += ((Math.random() * 0x10) << 0).toString(16);

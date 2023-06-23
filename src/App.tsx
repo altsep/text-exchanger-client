@@ -53,9 +53,7 @@ export default function App() {
         console.log('Attempting to access the server...');
         getPages(userId);
       }, 5000);
-      setWarningText(
-        '! Could not connect to the server. Try refreshing the page or wait until it reconnects...'
-      );
+      setWarningText('! Could not connect to the server. Try refreshing the page or wait until it reconnects...');
       setWarningDisplay('flex');
     } else setWarningDisplay('hidden');
     return () => clearInterval(intervalId);
@@ -107,13 +105,13 @@ export default function App() {
   return (
     <Routes>
       <Route
-        path='/'
+        path="/"
         element={
           <>
             <Themes />
-            <div className='flex flex-col items-center w-full absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 px-4 children:mb-4'>
+            <div className="flex flex-col items-center w-full absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 px-4 children:mb-4">
               <Desc />
-              <div className='flex flex-row flex-wrap justify-center'>
+              <div className="flex flex-row flex-wrap justify-center">
                 <Generate {...genBtnProps} />
               </div>
               {warning}
@@ -123,7 +121,7 @@ export default function App() {
           </>
         }
       />
-      <Route path=':p' element={<Unknown {...unknownProps} />} />
+      <Route path=":p" element={<Unknown {...unknownProps} />} />
     </Routes>
   );
 }

@@ -3,7 +3,7 @@ import { PageList } from '../../../App';
 import { themeI } from '../../../ThemeContext';
 
 export default function RemoveAllPages(props: {
-  theme: themeI,
+  theme: themeI;
   currentPath: string;
   userId: string;
   setPageWasDeleted: React.Dispatch<React.SetStateAction<boolean>>;

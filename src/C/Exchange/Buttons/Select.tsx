@@ -10,15 +10,7 @@ export default function Select(props: {
   setGuestText: React.Dispatch<React.SetStateAction<string>>;
   gotText: boolean;
 }) {
-  const {
-    theme,
-    isCreator,
-    creatorText,
-    guestText,
-    setCreatorText,
-    setGuestText,
-    gotText,
-  } = props;
+  const { theme, isCreator, creatorText, guestText, setCreatorText, setGuestText, gotText } = props;
 
   const getSelection = (el: HTMLTextAreaElement) => {
     if (el) {
@@ -51,8 +43,7 @@ export default function Select(props: {
     }
   };
 
-  const [selectBtnText, setSelectBtnText] =
-    React.useState<string>('Select all');
+  const [selectBtnText, setSelectBtnText] = React.useState<string>('Select all');
 
   React.useEffect(() => {
     const onSelectionChange = () => {
@@ -70,11 +61,7 @@ export default function Select(props: {
   return (
     <button
       className={`${theme.btn} ${
-        !gotText ||
-        (isCreator && creatorText.length === 0) ||
-        (!isCreator && guestText.length === 0)
-          ? 'hidden'
-          : ''
+        !gotText || (isCreator && creatorText.length === 0) || (!isCreator && guestText.length === 0) ? 'hidden' : ''
       }`}
       onClick={handleClick}
     >

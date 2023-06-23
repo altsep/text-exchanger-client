@@ -45,9 +45,4 @@ const Context = React.createContext<valueT>({
 const { Provider, Consumer } = Context;
 const useThemeContext = () => React.useContext(Context);
 
-export {
-  Context as ThemeContext,
-  ThemeProvider,
-  Consumer as ThemeConsumer,
-  useThemeContext,
-};
+export { Context as ThemeContext, ThemeProvider, Consumer as ThemeConsumer, useThemeContext };

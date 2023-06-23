@@ -128,16 +128,12 @@ export default function Exchange(props: exchangePropsI) {
   }, [warningDisplay]);
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className="flex flex-col items-center">
       {warning}
-      <div className='m-3 w-full'>
-        {textElementType === 'default' ? (
-          <Area {...userTextProps} />
-        ) : (
-          <Other {...userTextProps} />
-        )}
+      <div className="m-3 w-full">
+        {textElementType === 'default' ? <Area {...userTextProps} /> : <Other {...userTextProps} />}
       </div>
-      <div className='flex flex-row flex-wrap justify-center'>
+      <div className="flex flex-row flex-wrap justify-center">
         {textElementType === 'default' && (
           <>
             <Send {...sendBtnProps} />
@@ -147,11 +143,7 @@ export default function Exchange(props: exchangePropsI) {
         {isCreator && <RemovePage {...deleteBtnProps} />}
         <Show {...showBtnProps} />
       </div>
-      <div
-        className={`${
-          theme && theme.system
-        } p-3 text-xs flex flex-col items-center`}
-      >
+      <div className={`${theme && theme.system} p-3 text-xs flex flex-col items-center`}>
         <p>Page created</p>
         <p>{date}</p>
       </div>

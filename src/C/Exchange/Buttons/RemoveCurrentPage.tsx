@@ -10,14 +10,11 @@ export default function RemoveCurrentPage(props: {
   setPagesCreated: React.Dispatch<React.SetStateAction<PageList>>;
   setConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { theme, currentPath, userId, setPageWasDeleted, setPagesCreated, setConnected } =
-    props;
+  const { theme, currentPath, userId, setPageWasDeleted, setPagesCreated, setConnected } = props;
 
   const handleClick = async () => {
     try {
-      const { removePage, getCreatorPages } = await import(
-        '../../../F/requests'
-      );
+      const { removePage, getCreatorPages } = await import('../../../F/requests');
       await removePage(currentPath);
       setPageWasDeleted(true);
       const data = await getCreatorPages(userId);

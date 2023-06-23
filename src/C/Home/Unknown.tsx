@@ -16,7 +16,7 @@ export default function Unknown(props: {
   setConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { userId, setPagesCreated, setConnected } = props;
-  
+
   const [pageWasDeleted, setPageWasDeleted] = React.useState<boolean>(false);
 
   const { theme } = useThemeContext();
@@ -27,15 +27,13 @@ export default function Unknown(props: {
 
   React.useEffect(() => {
     p && setCurrentPath(p);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [currentPath, setCurrentPath] = React.useState<string>('');
 
   React.useEffect(() => {
-    const intervalId = setInterval(
-      () => pageWasDeleted && setCount((prevState) => prevState - 1),
-      1000
-    );
+    const intervalId = setInterval(() => pageWasDeleted && setCount((prevState) => prevState - 1), 1000);
     return () => clearInterval(intervalId);
   }, [pageWasDeleted]);
 
@@ -63,10 +61,7 @@ export default function Unknown(props: {
                   dateStyle: 'medium',
                   timeStyle: 'medium',
                 };
-                const dateConverted = new Date(date).toLocaleString(
-                  'en-US',
-                  options
-                );
+                const dateConverted = new Date(date).toLocaleString('en-US', options);
                 setLocalInfo({ creator, date: dateConverted });
                 const dateNow = Date.now();
                 updateInfo({
@@ -85,6 +80,7 @@ export default function Unknown(props: {
         )
         .catch((err) => console.error(err.message))
         .finally(() => setIsDataLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPath]);
 
   const exchangeProps = {
@@ -95,7 +91,7 @@ export default function Unknown(props: {
     setPageWasDeleted,
     setPagesCreated,
     setExists,
-    setConnected
+    setConnected,
   };
 
   const sysStyle = `${theme && theme.system} m-2 mb-4`;
@@ -103,7 +99,7 @@ export default function Unknown(props: {
   return (
     <>
       <div className={`${sysStyle} flex flex-row justify-between`}>
-        <Link to='/'>Return to home page</Link>
+        <Link to="/">Return to home page</Link>
         <p>{exists && currentPath}</p>
       </div>
       {/^\w{6}$/.test(currentPath) && isDataLoading ? (
@@ -112,7 +108,7 @@ export default function Unknown(props: {
         pageWasDeleted ? (
           <div className={sysStyle}>
             <p>Page was deleted. You will be redirected in {count} seconds.</p>
-            {count === 0 && <Navigate to='/' replace={true} />}
+            {count === 0 && <Navigate to="/" replace={true} />}
           </div>
         ) : (
           <Exchange {...exchangeProps} />

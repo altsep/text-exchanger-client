@@ -6,20 +6,10 @@ interface Props {
   isCreator: boolean;
   creatorText: string;
   guestText: string;
-  sendFormatted: (
-    type: string,
-    payload: string | Record<string, unknown>
-  ) => void;
+  sendFormatted: (type: string, payload: string | Record<string, unknown>) => void;
 }
 
-export default function Send({
-  theme,
-  currentPath,
-  isCreator,
-  creatorText,
-  guestText,
-  sendFormatted,
-}: Props) {
+export default function Send({ theme, currentPath, isCreator, creatorText, guestText, sendFormatted }: Props) {
   const handleSend = () =>
     sendFormatted('save-text', {
       pageName: currentPath,
@@ -27,12 +17,9 @@ export default function Send({
       text: isCreator ? creatorText : guestText,
     });
   return (
-    <button
-      className={`${theme.btn} flex flex-row items-center`}
-      onClick={handleSend}
-    >
+    <button className={`${theme.btn} flex flex-row items-center`} onClick={handleSend}>
       <p>Send</p>&nbsp;
-      <p className='text-xs'>(128kb max)</p>
+      <p className="text-xs">(128kb max)</p>
     </button>
   );
 }

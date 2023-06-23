@@ -11,14 +11,7 @@ export default function Generate(props: {
   setWarningDisplay: React.Dispatch<React.SetStateAction<string>>;
   setWarningText: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  const {
-    connected,
-    pagesCreated,
-    setPagesCreated,
-    setWarningDisplay,
-    setWarningText,
-    setConnected,
-  } = props;
+  const { connected, pagesCreated, setPagesCreated, setWarningDisplay, setWarningText, setConnected } = props;
   const { theme } = useThemeContext();
   const [isPageCreated, setIsPageCreated] = React.useState<boolean>(false);
   const [newPath, setNewPath] = React.useState<string>('');

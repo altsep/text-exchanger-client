@@ -11,10 +11,8 @@ interface themesI {
 
 const btnStyle = 'p-4 m-3 rounded-sm font-bold text-base font-mono';
 const anchorStyle = 'underline hovered:no-underline';
-const userTextStyle =
-  'items-center justify-center text-lg w-full max-w-5xl resize-none my-3 p-4';
-const dropdownStyle =
-  'text-base font-mono cursor-pointer children:py-2 children:px-4 text-right';
+const userTextStyle = 'items-center justify-center text-lg w-full max-w-5xl resize-none my-3 p-4';
+const dropdownStyle = 'text-base font-mono cursor-pointer children:py-2 children:px-4 text-right';
 const systemStyle = 'text-base font-mono';
 
 export const themes: themesI = {

@@ -6,13 +6,15 @@
     "jest": true
   },
   "extends": [
+    "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:json/recommended",
-    "plugin:jest-dom/recommended"
+    "plugin:jest-dom/recommended",
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -22,7 +24,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "json"],
+  "plugins": ["prettier", "react", "@typescript-eslint", "json"],
   "rules": {
     "react/prop-types": "off",
     "react/display-name": "off",
@@ -30,8 +32,6 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off",
-    "quotes": ["off", "single", { "avoidEscape": false }],
-    "jsx-quotes": ["warn", "prefer-single"],
     "no-empty": ["warn"],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/interface-name-prefix": "off",
