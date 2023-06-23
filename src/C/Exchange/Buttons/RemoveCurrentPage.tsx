@@ -2,7 +2,7 @@ import React from 'react';
 import { PageList } from '../../../App';
 import { themeI } from '../../../ThemeContext';
 
-export default function RemoveCurrentPage(props: {
+export function RemoveCurrentPage(props: {
   theme: themeI;
   currentPath: string;
   userId: string;

@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { PageList } from '../../../App';
 import { useThemeContext } from '../../../ThemeContext';
 
-export default function Generate(props: {
+export function Generate(props: {
   connected: boolean;
   setConnected: React.Dispatch<React.SetStateAction<boolean>>;
   pagesCreated: PageList;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useThemeContext } from '../../ThemeContext';
 import { PageList } from '../../App';
+import { useThemeContext } from '../../ThemeContext';
 
-export default function UserPages(props: { loading: boolean; gotPages: boolean; pagesCreated: PageList }) {
+export function UserPages(props: { loading: boolean; gotPages: boolean; pagesCreated: PageList }) {
   const { loading, gotPages, pagesCreated } = props;
   const { theme } = useThemeContext();
 

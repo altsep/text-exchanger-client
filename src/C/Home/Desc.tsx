@@ -1,8 +1,8 @@
-import React from 'react';
 import { useSpring } from '@react-spring/core';
 import { animated } from '@react-spring/web';
+import React from 'react';
 
-export default function Desc() {
+export function Desc() {
   const spring = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },

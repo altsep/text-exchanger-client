@@ -2,9 +2,9 @@ import React from 'react';
 import { PageList } from '../../App';
 import { RemovePage, Send, Select, Show } from './Buttons';
 import { useThemeContext } from '../../ThemeContext';
-import Area from './TextArea';
-import Other from './TextOther';
-import useWarning from '../../H/useWarning';
+import { TextArea as Area } from './TextArea';
+import { TextOther as Other } from './TextOther';
+import { useWarning } from '../../H/useWarning';
 
 interface exchangePropsI {
   currentPath: string;
@@ -17,7 +17,7 @@ interface exchangePropsI {
   setConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Exchange(props: exchangePropsI) {
+export function Exchange(props: exchangePropsI) {
   const { currentPath, userId, isCreator, date, setPageWasDeleted, setPagesCreated, setExists, setConnected } = props;
   const { theme } = useThemeContext();
   const [textElementType, setTextElementType] = React.useState<string>('default');

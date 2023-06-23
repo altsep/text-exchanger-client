@@ -9,7 +9,7 @@ interface Props {
   sendFormatted: (type: string, payload: string | Record<string, unknown>) => void;
 }
 
-export default function Send({ theme, currentPath, isCreator, creatorText, guestText, sendFormatted }: Props) {
+export function Send({ theme, currentPath, isCreator, creatorText, guestText, sendFormatted }: Props) {
   const handleSend = () =>
     sendFormatted('save-text', {
       pageName: currentPath,

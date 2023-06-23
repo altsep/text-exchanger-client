@@ -11,7 +11,7 @@ export interface userTextPropsI {
   gotText: boolean;
 }
 
-export default function TextArea(props: userTextPropsI) {
+export function TextArea(props: userTextPropsI) {
   const { theme, isCreator, creatorText, guestText, handleChange, gotText } = props;
 
   const setTextAreaHeight = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { themeI } from '../../../ThemeContext';
 
-export default function Select(props: {
+export function Select(props: {
   theme: themeI;
   isCreator: boolean;
   creatorText: string;

@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
+import { PageList } from '../../App';
 import { useThemeContext } from '../../ThemeContext';
 import { Exchange } from '../Exchange';
-import { PageList } from '../../App';
 
 interface info {
   creator: string;
   date: string;
 }
 
-export default function Unknown(props: {
+export function Unknown(props: {
   userId: string;
   pagesCreated: PageList;
   setPagesCreated: React.Dispatch<React.SetStateAction<PageList>>;

@@ -1,6 +1,6 @@
 import { userTextPropsI } from './TextArea';
 
-export default function TextOther(props: userTextPropsI) {
+export function TextOther(props: userTextPropsI) {
   const { theme, isCreator, textElementType, creatorText, guestText } = props;
   return (
     <div className="flex flex-col items-center justify-center w-full">

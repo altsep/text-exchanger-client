@@ -1,7 +1,7 @@
 import React from 'react';
 import { themeI } from '../../../ThemeContext';
 
-export default function Show(props: {
+export function Show(props: {
   theme: themeI;
   textElementType: string;
   setTextElementType: React.Dispatch<React.SetStateAction<string>>;

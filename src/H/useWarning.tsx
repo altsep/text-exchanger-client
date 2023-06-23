@@ -1,7 +1,7 @@
 import React from 'react';
 import { useThemeContext } from '../ThemeContext';
 
-export default function useWarning(defaultText?: string, defaultDisplay?: string | null, margin?: string | null) {
+export function useWarning(defaultText?: string, defaultDisplay?: string | null, margin?: string | null) {
   const [text, setText] = React.useState<string>(defaultText || '');
   const [display, setDisplay] = React.useState<string>(defaultDisplay || 'hidden');
   const [buttonOpacity, setButtonOpacity] = React.useState<string>('opacity-0');

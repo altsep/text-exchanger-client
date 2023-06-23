@@ -1,8 +1,8 @@
 import React from 'react';
-import { themes } from '../../themes';
 import { useThemeContext } from '../../ThemeContext';
+import { themes } from '../../themes';
 
-export default function ThemeProvider() {
+export function ThemeProvider() {
   const [isActive, setIsActive] = React.useState<boolean>(false);
   const { theme, setTheme } = useThemeContext();
   const themeList = Object.keys(themes);

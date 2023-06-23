@@ -1,6 +1,6 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Desc, Foot, Unknown, Themes, UserPages } from './C/Home';
+import { Route, Routes } from 'react-router-dom';
+import { Desc, Foot, Themes, Unknown, UserPages } from './C/Home';
 import { Generate } from './C/Home/Buttons';
 import useWarning from './H/useWarning';
 
@@ -13,7 +13,7 @@ export interface Info {
   creator: string;
 }
 
-export default function App() {
+export function App() {
   const [userId, setUserId] = React.useState<string>('');
   const [gotPages, setGotPages] = React.useState<boolean>(false);
   const [pagesCreated, setPagesCreated] = React.useState<PageList>([]);
