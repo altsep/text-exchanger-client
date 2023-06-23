@@ -18,68 +18,55 @@ interface exchangePropsI {
 }
 
 export default function Exchange(props: exchangePropsI) {
-  const {
-    currentPath,
-    userId,
-    isCreator,
-    date,
-    setPageWasDeleted,
-    setPagesCreated,
-    setExists,
-    setConnected,
-  } = props;
+  const { currentPath, userId, isCreator, date, setPageWasDeleted, setPagesCreated, setExists, setConnected } = props;
   const { theme } = useThemeContext();
-  const [textElementType, setTextElementType] =
-    React.useState<string>('default');
+  const [textElementType, setTextElementType] = React.useState<string>('default');
   const [gotText, setGotText] = React.useState<boolean>(false);
   const [creatorText, setCreatorText] = React.useState<string>('');
   const [guestText, setGuestText] = React.useState<string>('');
-  const [ws] = React.useState<WebSocket>(() => {
-    const url =
-      location.hostname === 'localhost'
-        ? 'ws://localhost:3001'
-        : `wss://${location.host}`;
+
+  const ws = React.useMemo<WebSocket>(() => {
+    const url = location.hostname === 'localhost' ? 'ws://localhost:3001' : `wss://${location.host}`;
     const ws = new WebSocket(url);
-    ws.onmessage = onMessage;
-    return ws;
-  });
 
-  const sendFormatted = (
-    type: string,
-    payload: string | Record<string, unknown>
-  ) => ws.send(JSON.stringify({ type, payload }));
-
-  React.useEffect(() => {
     const onOpen = () => {
       sendFormatted('get-text', { pageName: currentPath, isCreator });
     };
-    ws.addEventListener('open', onOpen);
-    return () => removeEventListener('open', onOpen);
+
+    const onMessage = (e: MessageEvent) => {
+      const { type, payload } = JSON.parse(e.data);
+      const { creatorData, guestData, text, message } = payload;
+      switch (type) {
+        case 'error':
+          setExists(false);
+          console.error(message);
+          break;
+        case 'system':
+          console.log(payload);
+          break;
+        case 'get-text':
+          setCreatorText(creatorData);
+          setGuestText(guestData);
+          setGotText(true);
+          break;
+        case 'other-text':
+          if (isCreator) setGuestText(text);
+          else setCreatorText(text);
+          break;
+        default:
+          return;
+      }
+    };
+
+    ws.onmessage = onMessage;
+    ws.onopen = onOpen;
+
+    return ws;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function onMessage(e: MessageEvent) {
-    const { type, payload } = JSON.parse(e.data);
-    const { creatorData, guestData, text, message } = payload;
-    switch (type) {
-      case 'error':
-        setExists(false);
-        console.error(message);
-        break;
-      case 'system':
-        console.log(payload);
-        break;
-      case 'get-text':
-        setCreatorText(creatorData);
-        setGuestText(guestData);
-        setGotText(true);
-        break;
-      case 'other-text':
-        if (isCreator) setGuestText(text);
-        else setCreatorText(text);
-        break;
-      default:
-        return;
-    }
+  function sendFormatted(type: string, payload: string | Record<string, unknown>) {
+    ws.send(JSON.stringify({ type, payload }));
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
